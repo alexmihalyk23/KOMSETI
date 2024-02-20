@@ -11,7 +11,8 @@ def max_ids(url):
     for t in test:
         r = t.find_all('a')
         for link in r:
-            pages.append(int(link['href'][-1]))
+            # print()
+            pages.append(int(link["href"].split('=')[-1]))
     return max(pages)
 
 # Функция для получения данных о гитарах на одной странице
