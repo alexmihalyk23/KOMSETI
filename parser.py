@@ -32,7 +32,7 @@ def parse_guitars(url, writer):
 
 # Основная функция для парсинга
 def parse_all_guitars_to_csv(guitar_type, max_ids):
-    print("Идет парсинг страницы Мир Музыки...")
+    print("Идет парсинг страницы...")
     base_url = f'https://mirm.ru{guitar_type}/'
 
     page = 1
@@ -71,6 +71,6 @@ for id, name_wrapper in enumerate(name_wrappers):
 
 guitar_dict = {id: name_wrapper.find('a')["href"] for id, name_wrapper in enumerate(name_wrappers)}
 # print(guitar_dict)
-type_of_guitar = int(input("Введите id гитар для парсинга "))
+type_of_guitar = int(input("Введите id для парсинга "))
 
 parse_all_guitars_to_csv(guitar_dict[type_of_guitar], max_ids(f'https://mirm.ru{guitar_dict[type_of_guitar]}/'))
