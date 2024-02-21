@@ -7,13 +7,18 @@ pages = []
 def max_ids(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
-    test = soup.find_all(class_="pagination-wrapper")
-    for t in test:
-        r = t.find_all('a')
-        for link in r:
-            # print()
-            pages.append(int(link["href"].split('=')[-1]))
-    return max(pages)
+    try:
+        test = soup.find_all(class_="pagination-wrapper")
+        for t in test:
+            r = t.find_all('a')
+            for link in r:
+                # print()
+                pages.append(int(link["href"].split('=')[-1]))
+        return max(pages)
+    except Exception as e:
+        return 1
+    
+    
 
 # Функция для получения данных о гитарах на одной странице
 def parse_guitars(url, writer):
