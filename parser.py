@@ -7,18 +7,13 @@ pages = []
 def max_ids(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
-    try:
-        test = soup.find_all(class_="pagination-wrapper")
-        for t in test:
-            r = t.find_all('a')
-            for link in r:
-                # print()
-                pages.append(int(link["href"].split('=')[-1]))
-        return max(pages)
-    except Exception as e:
-        return 1
-    
-    
+    test = soup.find_all(class_="pagination-wrapper")
+    for t in test:
+        r = t.find_all('a')
+        for link in r:
+            # print()
+            pages.append(int(link["href"].split('=')[-1]))
+    return max(pages)
 
 # Функция для получения данных о гитарах на одной странице
 def parse_guitars(url, writer):
@@ -37,7 +32,7 @@ def parse_guitars(url, writer):
 
 # Основная функция для парсинга
 def parse_all_guitars_to_csv(guitar_type, max_ids):
-    print("Идет парсинг страницы...")
+    print("Идет парсинг страницы Мир Музыки...")
     base_url = f'https://mirm.ru{guitar_type}/'
 
     page = 1
@@ -76,6 +71,6 @@ for id, name_wrapper in enumerate(name_wrappers):
 
 guitar_dict = {id: name_wrapper.find('a')["href"] for id, name_wrapper in enumerate(name_wrappers)}
 # print(guitar_dict)
-type_of_guitar = int(input("Введите id для парсинга: "))
+type_of_guitar = int(input("Введите id гитар для парсинга "))
 
 parse_all_guitars_to_csv(guitar_dict[type_of_guitar], max_ids(f'https://mirm.ru{guitar_dict[type_of_guitar]}/'))
